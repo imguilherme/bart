@@ -32,7 +32,7 @@ import (
 type SimpleChaincode struct {
 }
 
-var cprIndexStr = "_cprindex"				//name for the key/value that will store a list of all known marbles
+var cprIndexStr = "_cprindex"				//name for the key/value that will store a list of all known cprs
 
 type Cpr struct{
 	id string `json:"id"`					//the fieldtags are needed to keep case from bouncing around
@@ -96,7 +96,7 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 		return t.Delete(stub, args)
 	} else if function == "write" {											//writes a value to the chaincode state
 		return t.Write(stub, args)
-	} else if function == "init_cpr" {					  				    //create a new marble
+	} else if function == "init_cpr" {					  				    //create a new cpr
 		return t.init_cpr(stub, args)
 	} else if function == "set_user" {										//change owner of a cpr
 		return t.set_user(stub, args)
@@ -156,28 +156,28 @@ func (t *SimpleChaincode) Delete(stub *shim.ChaincodeStub, args []string) ([]byt
 		return nil, errors.New("Failed to delete state")
 	}
 
-	//get the marble index
-	marblesAsBytes, err := stub.GetState(marbleIndexStr)
+	//get the cpr index
+	cprsAsBytes, err := stub.GetState(cprIndexStr)
 	if err != nil {
-		return nil, errors.New("Failed to get marble index")
+		return nil, errors.New("Failed to get cpr index")
 	}
-	var marbleIndex []string
-	json.Unmarshal(marblesAsBytes, &marbleIndex)								//un stringify it aka JSON.parse()
+	var cprIndex []string
+	json.Unmarshal(cprsAsBytes, &cprIndex)								//un stringify it aka JSON.parse()
 	
-	//remove marble from index
-	for i,val := range marbleIndex{
+	//remove cpr from index
+	for i,val := range cprIndex{
 		fmt.Println(strconv.Itoa(i) + " - looking at " + val + " for " + name)
-		if val == name{															//find the correct marble
-			fmt.Println("found marble")
-			marbleIndex = append(marbleIndex[:i], marbleIndex[i+1:]...)			//remove it
-			for x:= range marbleIndex{											//debug prints...
-				fmt.Println(string(x) + " - " + marbleIndex[x])
+		if val == name{															//find the correct cpr
+			fmt.Println("found cpr")
+			cprIndex = append(cprIndex[:i], cprIndex[i+1:]...)			//remove it
+			for x:= range cprIndex{											//debug prints...
+				fmt.Println(string(x) + " - " + cprIndex[x])
 			}
 			break
 		}
 	}
-	jsonAsBytes, _ := json.Marshal(marbleIndex)									//save new index
-	err = stub.PutState(marbleIndexStr, jsonAsBytes)
+	jsonAsBytes, _ := json.Marshal(cprIndex)									//save new index
+	err = stub.PutState(cprIndexStr, jsonAsBytes)
 	return nil, nil
 }
 
@@ -217,7 +217,7 @@ func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]b
 		return nil, errors.New("Incorrect number of arguments. Expecting 2")
 	}
 
-	fmt.Println("- start init marble")
+	fmt.Println("- start init cpr")
 	if len(args[0]) <= 0 {
 		return nil, errors.New("1st argument must be a non-empty string")
 	}
@@ -253,7 +253,7 @@ func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]b
 }
 
 // ============================================================================================================================
-// Set User Permission on Marble
+// Set User Permission on cpr
 // ============================================================================================================================
 func (t *SimpleChaincode) set_user(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 	var err error
@@ -275,7 +275,7 @@ func (t *SimpleChaincode) set_user(stub *shim.ChaincodeStub, args []string) ([]b
 	res.owner = args[1]														//change the owner
 	
 	jsonAsBytes, _ := json.Marshal(res)
-	err = stub.PutState(args[0], jsonAsBytes)								//rewrite the marble with id as key
+	err = stub.PutState(args[0], jsonAsBytes)								//rewrite the cpr with id as key
 	if err != nil {
 		return nil, err
 	}
