@@ -26,6 +26,30 @@ chaincode 8fa26806b253072494a7c197ea51bde819e6b922bfcf70fbfe542a3215d6271ae68b22
 }
 
 
+{
+  "jsonrpc": "2.0",
+  "method": "invoke",
+  "params": {
+    "type": 1,
+    "chaincodeID": {
+      "name": "4c5cf7ebca6005ac9a1116af2ac55f29d943f3e5d2184793eb542334c072dab120dbc25e463f9fd03fa181bc316abec32391ff0ad6d5cb93f152062ef14fe30b"
+    },
+    "ctorMsg": {
+      "function": "init_cpr",
+      "args": [
+        "312312312312",
+        "dsdasdas",
+        "1",
+        "2"
+      ]
+    },
+    "secureContext": "user_type1_23e0cb988a"
+  },
+  "id": 0
+}
+
+
+
 curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
   \"enrollId\": \"user_type1_23e0cb988a\",
   \"enrollSecret\": \"77bf64f5e2\"

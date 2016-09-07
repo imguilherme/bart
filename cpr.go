@@ -210,7 +210,7 @@ func (t *SimpleChaincode) Write(stub *shim.ChaincodeStub, args []string) ([]byte
 func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 	
 
-	fmt.Println("- STARTINGGGGGG INIT_CPR METHOOOOD!")
+	fmt.Println("- STARTINGGGGGG INIT_CPR METHOOOOD! - 1")
 
 
 	var err error
@@ -218,11 +218,14 @@ func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]b
 	//   0         1           2,      4,
 	// "id", "hash do pdf",  owner   grower
 
-	if len(args) != 3 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 2")
-	}
+	fmt.Println("- STARTINGGGGGG INIT_CPR METHOOOOD! - 2")
 
+	if len(args) != 4 {
+		return nil, errors.New("Incorrect number of arguments. Expecting 4")
+	}
 	
+	fmt.Println("- STARTINGGGGGG INIT_CPR METHOOOOD! - 3")
+
 	if len(args[0]) <= 0 {
 		return nil, errors.New("1st argument must be a non-empty string")
 	}
@@ -235,6 +238,8 @@ func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]b
 	if len(args[3]) <= 0 {
 		return nil, errors.New("4rd argument must be a non-empty string")
 	}
+
+	fmt.Println("- STARTINGGGGGG INIT_CPR METHOOOOD! - 4")
 		
 	str := `{"id": "` + args[0] + `", "hash": "` + args[1] + `",  "owner": "`+ args[2] + `", "grower": "`+ args[3] +`"}`
 	err = stub.PutState(args[0], []byte(str))								//store cpr with id as key
