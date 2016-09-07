@@ -97,7 +97,9 @@ func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args
 	} else if function == "write" {											//writes a value to the chaincode state
 		return t.Write(stub, args)
 	} else if function == "init_cpr" {					  				    //create a new cpr
+		fmt.Println("pre call cpr");
 		return t.init_cpr(stub, args)
+
 	} else if function == "set_user" {										//change owner of a cpr
 		return t.set_user(stub, args)
 	}
@@ -208,10 +210,9 @@ func (t *SimpleChaincode) Write(stub *shim.ChaincodeStub, args []string) ([]byte
 func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 	
 	var err error
-
-
-	//   0       1      
-	// "id", "hash do pdf", 
+ 
+	//   0         1           2,      4,
+	// "id", "hash do pdf",  owner   grower
 
 	if len(args) != 3 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 2")
