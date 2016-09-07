@@ -32,7 +32,7 @@ chaincode 8fa26806b253072494a7c197ea51bde819e6b922bfcf70fbfe542a3215d6271ae68b22
   "params": {
     "type": 1,
     "chaincodeID": {
-      "name": "4c5cf7ebca6005ac9a1116af2ac55f29d943f3e5d2184793eb542334c072dab120dbc25e463f9fd03fa181bc316abec32391ff0ad6d5cb93f152062ef14fe30b"
+      "name": "3bc428849a494b3041328eebf3f72a4b8264b279c771a4ca08dba3e3abf3cc99f284aae6481dec8b57a8cdb79f7fb0eec6b593ecc84f90bd724fb31624b6da3c"
     },
     "ctorMsg": {
       "function": "init_cpr",
