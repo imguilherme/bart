@@ -35,8 +35,9 @@ var cprIndexStr = "_cprindex"				//name for the key/value that will store a list
 
 type Cpr struct{
 	id string `json:"id"`					//the fieldtags are needed to keep case from bouncing around
-	hash string `json:"color"`
-	owner string `json:"id"`
+	hash string `json:"hash"`
+	owner string `json:"owner"`
+	grower string `json:"grower"`
 }
 
 // ============================================================================================================================
@@ -226,8 +227,11 @@ func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]b
 	if len(args[2]) <= 0 {
 		return nil, errors.New("3rd argument must be a non-empty string")
 	}
+	if len(args[3]) <= 0 {
+		return nil, errors.New("4rd argument must be a non-empty string")
+	}
 		
-	str := `{"id": "` + args[0] + `", "hash": "` + args[1] + `",  "owner": "`+ args[2] + `"}`
+	str := `{"id": "` + args[0] + `", "hash": "` + args[1] + `",  "owner": "`+ args[2] + `", "grower": "`+ args[3] +`"}`
 	err = stub.PutState(args[0], []byte(str))								//store cpr with id as key
 	if err != nil {
 		return nil, err
