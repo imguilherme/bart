@@ -2,7 +2,28 @@ user_type1_23e0cb988a
 77bf64f5e2
 
 
-chaincode 1c54ddaaaf679553ab41929f09d818718a6842a776bf604d3212c47a0207e117a99b8b9f05648fd0dc1ccd64064ad0fc33e844134fb0bafb6e20fab56f705027
+chaincode 8fa26806b253072494a7c197ea51bde819e6b922bfcf70fbfe542a3215d6271ae68b22a85d848752fcbb107a9a657637de1fad57889342e171fecc25f5bacb36
+
+
+
+{
+  "jsonrpc": "2.0",
+  "method": "deploy",
+  "params": {
+    "type": 1,
+    "chaincodeID": {
+      "path": "https://github.com/imguilherme/bart"
+    },
+    "ctorMsg": {
+      "function": "init",
+      "args": [
+        "Bart"
+      ]
+    },
+    "secureContext": "user_type1_23e0cb988a"
+  },
+  "id": 0
+}
 
 
 curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{

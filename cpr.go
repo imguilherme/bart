@@ -209,6 +209,10 @@ func (t *SimpleChaincode) Write(stub *shim.ChaincodeStub, args []string) ([]byte
 // ============================================================================================================================
 func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
 	
+
+	fmt.Println("- STARTINGGGGGG INIT_CPR METHOOOOD!")
+
+
 	var err error
  
 	//   0         1           2,      4,
@@ -218,7 +222,7 @@ func (t *SimpleChaincode) init_cpr(stub *shim.ChaincodeStub, args []string) ([]b
 		return nil, errors.New("Incorrect number of arguments. Expecting 2")
 	}
 
-	fmt.Println("- start init cpr")
+	
 	if len(args[0]) <= 0 {
 		return nil, errors.New("1st argument must be a non-empty string")
 	}
